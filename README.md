@@ -32,10 +32,28 @@ In order to set up this testing environment, you need to install the following t
 
 Usage
 -----
+1. Create Docker containers :
 ```sh
 docker-compose up
 ```
+2. List Docker containers :
+```sh
+docker-compose ps -a
 
+                  Name                          Command         State                          Ports                       
+---------------------------------------------------------------------------------------------------------------------------
+auto_monitoring_cmdb_flask_rest_facade_1   python /opt/app.py   Up      0.0.0.0:6000->5000/tcp                             
+auto_monitoring_cmdb_icinga2_1             /opt/run             Up      443/tcp, 0.0.0.0:5665->5665/tcp, 0.0.0.0:80->80/tcp
+```
+3. Stop/Remove Docker containers :
+```sh
+docker-compose down
+
+Stopping auto_monitoring_cmdb_icinga2_1           ... done
+Stopping auto_monitoring_cmdb_flask_rest_facade_1 ... done
+Removing auto_monitoring_cmdb_icinga2_1           ... done
+Removing auto_monitoring_cmdb_flask_rest_facade_1 ... done
+```
 Test
 -----
 1. Test the Flask REST API
