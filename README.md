@@ -9,6 +9,11 @@ Using a CMDB model, Customers can create Automatic Monitoring for their:
 
 Git repo : https://github.com/erlisb/auto_monitoring_cmdb
 
+Testing Environment 
+-------------------
+
+![Image description](env.jpg)
+
 Requirements
 ------------
 In order to set up this testing environment, you need to install the following tools/packages :
