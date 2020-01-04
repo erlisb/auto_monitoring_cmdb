@@ -1,0 +1,12 @@
+version: '3'
+services:
+  flask_rest_facade:
+    build: .
+    ports:
+      - "6000:5000"
+  icinga2:
+    image: "jordan/icinga2:latest"
+    ports:
+      - "80:80"
+      - "5665:5665"
+
