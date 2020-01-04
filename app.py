@@ -1,0 +1,84 @@
+from flask import Flask
+from flask_restful import Resource, Api, reqparse
+import sqlite3
+from icinga_api import Icinga
+
+app = Flask(__name__)
+api = Api(app)
+
+
+icinga_api = Icinga(url='https://localhost',
+                    port=5665,
+                    username='root',
+                    password='f5d694d137eee121')
+
+
+class Health(Resource):
+    def get(self):
+
+        return {
+            "message": "Flask Facade"
+        }, 200
+
+
+class Hosts(Resource):
+    TABLE_NAME = 'hosts'
+
+    def get(self):
+
+        connection = sqlite3.connect('cmdb.db')
+        cursor = connection.cursor()
+
+        query = "SELECT * FROM {table}".format(table=self.TABLE_NAME)
+
+        try:
+            result = cursor.execute(query)
+        except:
+            return {"message": "An error occurred when selecting from the database."}, 503
+
+        hosts = [
+            {
+                'host_id': row[0],
+                'host_object_id': row[1],
+                'display_name': row[2],
+                'address': row[3],
+                'check_interval': row[4],
+                'check_command': row[5],
+                'check_command_args': row[6],
+                'status': row[7]
+            } for row in result
+        ]
+
+        connection.close()
+
+        return {'hosts': hosts}, 200 if not hosts else 404
+
+
+class Host(Resource):
+
+    parser = reqparse.RequestParser()
+    parser.add_argument('address', type=str, required=True, help="This field cannot be left blank!")
+    parser.add_argument('check_interval', type=int, required=True, help="This field cannot be left blank!")
+    parser.add_argument('check_command', type=str, required=True, help="This field cannot be left blank!")
+    parser.add_argument('check_command_args', type=str, required=True, help="This field cannot be left blank!")
+
+    def post(self, name):
+        data = Host.parser.parse_args()
+
+        request = icinga_api.create_object(name=name,
+                                           data=data,
+                                           endpoint='/v1/config/stages/pyrana')
+
+        return {
+            'name': name,
+            'data': data,
+            'json': request.json()
+        }, 200
+
+
+api.add_resource(Health, '/health')
+api.add_resource(Hosts, '/hosts')
+api.add_resource(Host, '/host/<string:name>')
+
+if __name__ == '__main__':
+    app.run(port=5000, debug=True, host='0.0.0.0')
