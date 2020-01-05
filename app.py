@@ -8,7 +8,7 @@ app = Flask(__name__)
 api = Api(app)
 
 
-config = Config(config_file='icinga2.yaml')
+config = Config(config_file='configs.yaml')
 
 icinga_api = Icinga(url=config.icinga2_url, port=config.icinga2_api_port,
                     username=config.username, password=config.password)

@@ -4,6 +4,9 @@ services:
     build: .
     ports:
       - "6000:5000"
+    volumes:
+      - ~/auto_monitoring_cmdb/configs.yaml:/opt/configs.yaml
+      - ~/auto_monitoring_cmdb/app.py:/opt/app.py
   icinga2:
     image: "jordan/icinga2:latest"
     ports:
