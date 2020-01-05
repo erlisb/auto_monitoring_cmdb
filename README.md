@@ -3,7 +3,7 @@ Automated Monitoring using CMDB
 Using a CMDB model, Customers can create Automatic Monitoring for their:
 - Infrastructure(s)
 - Platform(s)
-- Applications(s)
+- Application(s)
 - Service(s)  
 -------------------------------
 
@@ -13,6 +13,7 @@ Testing Environment
 -------------------
 
 ![Image description](env.jpg)
+
 
 Requirements
 ------------
