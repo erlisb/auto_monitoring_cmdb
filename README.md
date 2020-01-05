@@ -75,6 +75,32 @@ Response :
 
 2. Test the Icinga API
 ```
+In order to access Icinga2 API, we need the api user credentials :
+
+2.1 - Enter inside icinga2 container we already created :
+
+docker exec -it <icinga2_container> bash
+
+2.2 - Update ubuntu repositories :
+
+apt-get update
+
+2.3 - Install vim editor :
+
+apt-get install vim
+
+2.4 - Modify config file : /etc/icinga2/conf.d/api-users.conf, as follows :
+
+vi /etc/icinga2/conf.d/api-users.conf
+
+2.5 - Set username & password :
+
+Username : root
+Password : icinga2
+Permissions : *
+
+2.6 - Test Icinga2 API using the above credentials :
+
 curl -v -k -s -u root:<root_password> 'https://localhost:5665/v1/objects/hosts?pretty=1'
 
 Response :
