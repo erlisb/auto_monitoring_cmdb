@@ -1,16 +1,17 @@
 from flask import Flask
 from flask_restful import Resource, Api, reqparse
 import sqlite3
+from config import Config
 from icinga_api import Icinga
 
 app = Flask(__name__)
 api = Api(app)
 
 
-icinga_api = Icinga(url='https://localhost',
-                    port=5665,
-                    username='root',
-                    password='f5d694d137eee121')
+config = Config(config_file='icinga2.yaml')
+
+icinga_api = Icinga(url=config.icinga2_url, port=config.icinga2_api_port,
+                    username=config.username, password=config.password)
 
 
 class Health(Resource):
