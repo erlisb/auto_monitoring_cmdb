@@ -117,6 +117,12 @@ Response :
 < Content-Type: application/json
 ```
 
+References
+-----
+- Icinga API : https://icinga.com/docs/icinga2/latest/doc/12-icinga2-api/#icinga2-api-config-management
+- Docker : https://docs.docker.com/install/linux/docker-ce/ubuntu/
+- Docker Compose : https://docs.docker.com/compose/
+
 Author
 ------
 Erlis Balla <erlis.balla@lhind.dlh.de>
