@@ -17,7 +17,7 @@ class Health(Resource):
     def get(self):
 
         return {
-            "message": "Flask Facade"
+            "message": "Hello Pyrana People :)"
         }, 200
 
 
