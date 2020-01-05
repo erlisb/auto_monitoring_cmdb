@@ -29,6 +29,7 @@ In order to set up this testing environment, you need to install the following t
   - flask_restful
   - requests
   - sqlite
+  - pyyaml
 
 
 Usage
