@@ -30,6 +30,7 @@ In order to set up this testing environment, you need to install the following t
   - requests
   - sqlite
   - pyyaml
+  - urllib3
 
 
 Usage

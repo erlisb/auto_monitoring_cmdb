@@ -9,9 +9,12 @@ api = Api(app)
 
 
 config = Config(config_file='configs.yaml')
-
-icinga_api = Icinga(url=config.icinga2_url, port=config.icinga2_api_port,
-                    username=config.username, password=config.password)
+icinga_api = Icinga(url=config.icinga2_url,
+                    port=config.icinga2_api_port,
+                    username=config.username,
+                    password=config.password,
+                    package_endpoint=config.package_endpoint,
+                    stage_endpoint=config.stage_endpoint)
 
 
 class Health(Resource):
@@ -39,14 +42,15 @@ class Hosts(Resource):
 
         hosts = [
             {
-                'host_id': row[0],
-                'host_object_id': row[1],
-                'display_name': row[2],
-                'address': row[3],
-                'check_interval': row[4],
-                'check_command': row[5],
-                'check_command_args': row[6],
-                'status': row[7]
+                'customer': row[0],
+                'host_id': row[1],
+                'host_object_id': row[2],
+                'display_name': row[3],
+                'address': row[4],
+                'check_interval': row[5],
+                'check_command': row[6],
+                'check_command_args': row[7],
+                'status': row[8]
             } for row in result
         ]
 
@@ -62,13 +66,12 @@ class Host(Resource):
     parser.add_argument('check_interval', type=int, required=True, help="This field cannot be left blank!")
     parser.add_argument('check_command', type=str, required=True, help="This field cannot be left blank!")
     parser.add_argument('check_command_args', type=str, required=True, help="This field cannot be left blank!")
+    parser.add_argument('customer', type=str, required=True, help="This field cannot be left blank!")
 
     def post(self, name):
         data = Host.parser.parse_args()
 
-        request = icinga_api.create_object(name=name,
-                                           data=data,
-                                           endpoint='/v1/config/stages/pyrana')
+        request = icinga_api.create_object(name=name, data=data)
 
         return {
             'name': name,
