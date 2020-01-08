@@ -2,7 +2,7 @@ icinga2_rest_api:
   icinga2_url: 'https://192.168.15.128'
   icinga2_api_port: '5665'
   username: 'root'
-  password: 'a6e510fc0c87a5d4'
+  password: '59ca929705d41ae7'
 icinga2_rest_endpoints:
   package_endpoint: '/v1/config/packages/'
   stage_endpoint: '/v1/config/stages/'

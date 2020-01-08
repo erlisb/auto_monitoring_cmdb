@@ -101,6 +101,8 @@ Username : root
 Password : icinga2
 Permissions : *
 
+You need also to set up these credentials into the configs.yaml file.
+
 2.6 - Test Icinga2 API using the above credentials :
 
 curl -v -k -s -u root:<root_password> 'https://localhost:5665/v1/objects/hosts?pretty=1'
